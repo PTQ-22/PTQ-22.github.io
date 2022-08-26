@@ -1,0 +1,109 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>Programowanie i Algorytmika</title><meta name="next-head-count" content="3"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-3433a2a2d0cf6fb6.js" defer=""></script><script src="/_next/static/chunks/framework-9b5d6ec4444c80fa.js" defer=""></script><script src="/_next/static/chunks/main-3123a443c688934f.js" defer=""></script><script src="/_next/static/chunks/pages/_app-dde6f6d9ff81fd35.js" defer=""></script><script src="/_next/static/chunks/664-ac1349529b76e794.js" defer=""></script><script src="/_next/static/chunks/589-41a19a63300fd6d7.js" defer=""></script><script src="/_next/static/chunks/pages/temat/%5Bid%5D-9b94a9c7a18fdef8.js" defer=""></script><script src="/_next/static/PV3Ahy2NfbM4ugx1-cHhk/_buildManifest.js" defer=""></script><script src="/_next/static/PV3Ahy2NfbM4ugx1-cHhk/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="sc-5dc99bb-2 kXQQfk"><nav class="sc-5dc99bb-0 bPohBk"><div class="sc-5dc99bb-1 ddOtjj"></div><h1>Playfair</h1></nav><main class="sc-5dc99bb-3 gSbCSc"><section class="sc-5dc99bb-4 jkwgMu"><div><p>Szyfr Playfair to poligramowy szyfr podstawieniowy, który polega na
+                zastępowaniu par liter tekstu jawnego inną parą liter.</p>
+            <p> Pary nie mogą się składać z tych samych liter, więc jeśli parę tworzą te same
+            litery to rozdzielamy je znakiem 'X'. Długość tekstu musi być również parzysta, więc
+            jeśli nie jest to dodajemy na koniec 'X'.</p>
+            <p>Do szyfrowania
+            wykorzystujemy klucz, który wypisujemy do tabelki 5x5 i
+            dopełniamy ją pozostałymi literami alfabetu.
+            Każda litera występuje w tabeli raz oraz pomijamy literę 'I'.
+                Ewentualne litery 'I' w tekście jawnym zamieniamy na 'J'.</p>
+
+</div></section><section class="sc-5dc99bb-5 QtyGq"><pre style="display:block;overflow-x:auto;padding:0.5em;color:#abb2bf;background:#282c34"><code class="language-cpp" style="white-space:pre"><span style="color:#F92672">const</span><span> </span><span style="color:#F92672">int</span><span> LETTERS = </span><span style="color:#d19a66">26</span><span>;
+</span><span></span><span style="color:#F92672">bool</span><span> is_letter_used[LETTERS];
+</span>
+<span></span><span style="color:#F92672">const</span><span> </span><span style="color:#F92672">int</span><span> TAB_SIZE = </span><span style="color:#d19a66">5</span><span>;
+</span><span></span><span style="color:#F92672">char</span><span> table[TAB_SIZE][TAB_SIZE];
+</span>
+<span></span><span style="color:#61aeee">string </span><span style="color:#61aeee">cut_key</span><span style="color:#61aeee">(string key)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    string new_key = </span><span style="color:#98c379">&quot;&quot;</span><span>;
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">char</span><span> c : key) {
+</span><span>        </span><span style="color:#F92672">if</span><span> (!is_letter_used[c - </span><span style="color:#98c379">&#x27;A&#x27;</span><span>]) {
+</span>            new_key += c;
+<span>            is_letter_used[c - </span><span style="color:#98c379">&#x27;A&#x27;</span><span>] = </span><span style="color:#56b6c2">true</span><span>;
+</span>        }
+<!-- -->    }
+<span>    </span><span style="color:#F92672">return</span><span> new_key;
+</span>}
+<!-- -->
+<span></span><span style="color:#61aeee">string </span><span style="color:#61aeee">prepare_text</span><span style="color:#61aeee">(string text)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">0</span><span>; i &lt; text.</span><span style="color:#e6c07b">length</span><span>(); i += </span><span style="color:#d19a66">2</span><span>) {
+</span><span>        </span><span style="color:#F92672">if</span><span> (text[i] == text[i + </span><span style="color:#d19a66">1</span><span>]) {
+</span><span>            text.</span><span style="color:#e6c07b">insert</span><span>(i + </span><span style="color:#d19a66">1</span><span>, </span><span style="color:#98c379">&quot;X&quot;</span><span>);
+</span>        }
+<!-- -->    }
+<span>    </span><span style="color:#F92672">if</span><span> (text.</span><span style="color:#e6c07b">length</span><span>() % </span><span style="color:#d19a66">2</span><span>) {
+</span><span>        text += </span><span style="color:#98c379">&quot;X&quot;</span><span>;
+</span>    }
+<span>    </span><span style="color:#F92672">return</span><span> text;
+</span>}
+<!-- -->
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">fill_table</span><span style="color:#61aeee">(string key)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">0</span><span>;
+</span><span>    </span><span style="color:#F92672">int</span><span> j = </span><span style="color:#d19a66">0</span><span>;
+</span><span>    </span><span style="color:#b18eb1;font-style:italic">// wypełnienie kluczem</span><span>
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">char</span><span> c : key) {
+</span>        table[i][j++] = c;
+<span>        </span><span style="color:#F92672">if</span><span> (j == TAB_SIZE) {
+</span><span>            j = </span><span style="color:#d19a66">0</span><span>;
+</span>            ++i;
+<!-- -->        }
+<!-- -->    }
+<span>    </span><span style="color:#b18eb1;font-style:italic">// dopełnienie alfabetem</span><span>
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> k = </span><span style="color:#d19a66">0</span><span>; k &lt; LETTERS; ++k) {
+</span><span>        </span><span style="color:#F92672">if</span><span> (!is_letter_used[k]) {
+</span><span>            table[i][j++] = </span><span style="color:#F92672">char</span><span>(k + </span><span style="color:#98c379">&#x27;A&#x27;</span><span>);
+</span><span>            </span><span style="color:#F92672">if</span><span> (j == TAB_SIZE) {
+</span><span>                j = </span><span style="color:#d19a66">0</span><span>;
+</span>                ++i;
+<!-- -->            }
+<!-- -->        }
+<!-- -->    }
+<!-- -->}
+<!-- -->
+<span></span><span class="hljs-class" style="color:#F92672">struct</span><span class="hljs-class"> </span><span class="hljs-class" style="color:#61aeee">Pos</span><span class="hljs-class"> {</span><span>
+</span><span>    </span><span style="color:#F92672">int</span><span> x, y;
+</span>};
+<!-- -->
+<span></span><span style="color:#61aeee">string </span><span style="color:#61aeee">encrypt</span><span style="color:#61aeee">(string text, string key)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    is_letter_used[</span><span style="color:#98c379">&#x27;J&#x27;</span><span> - </span><span style="color:#98c379">&#x27;A&#x27;</span><span>] = </span><span style="color:#56b6c2">true</span><span>; </span><span style="color:#b18eb1;font-style:italic">// nie używamy j</span><span>
+</span><span>    key = </span><span style="color:#e6c07b">cut_key</span><span>(key); </span><span style="color:#b18eb1;font-style:italic">// przycinamy klucz jeśli zawiera powtórzenia</span><span>
+</span><span>    text = </span><span style="color:#e6c07b">prepare_text</span><span>(text); </span><span style="color:#b18eb1;font-style:italic">// dodanie X jeśli trzeba</span><span>
+</span><span>    </span><span style="color:#e6c07b">fill_table</span><span>(key);
+</span>
+<span>    string encrypted = </span><span style="color:#98c379">&quot;&quot;</span><span>;
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> k = </span><span style="color:#d19a66">0</span><span>; k &lt; text.</span><span style="color:#e6c07b">length</span><span>(); k += </span><span style="color:#d19a66">2</span><span>) {
+</span>        Pos first, second;
+<span>        </span><span style="color:#b18eb1;font-style:italic">// znalezienie pozycji obecnej pary</span><span>
+</span><span>        </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">0</span><span>; i &lt; TAB_SIZE; ++i) {
+</span><span>            </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> j = </span><span style="color:#d19a66">0</span><span>; j &lt; TAB_SIZE; ++j) {
+</span><span>                </span><span style="color:#F92672">if</span><span> (table[i][j] == text[k]) {
+</span>                    first.x = i;
+<!-- -->                    first.y = j;
+<!-- -->                }
+<span>                </span><span style="color:#F92672">if</span><span> (table[i][j] == text[k + </span><span style="color:#d19a66">1</span><span>]) {
+</span>                    second.x = i;
+<!-- -->                    second.y = j;
+<!-- -->                }
+<!-- -->            }
+<!-- -->        }
+<span>        </span><span style="color:#F92672">if</span><span> (first.x == second.x) {
+</span><span>            encrypted += table[first.x][(first.y + </span><span style="color:#d19a66">1</span><span>) % TAB_SIZE];
+</span><span>            encrypted += table[first.x][(second.y + </span><span style="color:#d19a66">1</span><span>) % TAB_SIZE];
+</span>        }
+<span>        </span><span style="color:#F92672">else</span><span> </span><span style="color:#F92672">if</span><span> (first.y == second.y) {
+</span><span>            encrypted += table[(first.x + </span><span style="color:#d19a66">1</span><span>) % TAB_SIZE][first.y];
+</span><span>            encrypted += table[(second.x + </span><span style="color:#d19a66">1</span><span>) % TAB_SIZE][first.y];
+</span>        }
+<span>        </span><span style="color:#F92672">else</span><span> {
+</span>            encrypted += table[first.x][second.y];
+<!-- -->            encrypted += table[second.x][first.y];
+<!-- -->        }
+<!-- -->    }
+<span>    </span><span style="color:#F92672">return</span><span> encrypted;
+</span>}
+</code></pre><button class="sc-5dc99bb-6 fWnlPV">Kopiuj<!-- --> </button></section></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"subject":{"id":30,"name":"Playfair","description":"\u003cp\u003eSzyfr Playfair to poligramowy szyfr podstawieniowy, który polega na\r\n                zastępowaniu par liter tekstu jawnego inną parą liter.\u003c/p\u003e\r\n            \u003cp\u003e Pary nie mogą się składać z tych samych liter, więc jeśli parę tworzą te same\r\n            litery to rozdzielamy je znakiem 'X'. Długość tekstu musi być również parzysta, więc\r\n            jeśli nie jest to dodajemy na koniec 'X'.\u003c/p\u003e\r\n            \u003cp\u003eDo szyfrowania\r\n            wykorzystujemy klucz, który wypisujemy do tabelki 5x5 i\r\n            dopełniamy ją pozostałymi literami alfabetu.\r\n            Każda litera występuje w tabeli raz oraz pomijamy literę 'I'.\r\n                Ewentualne litery 'I' w tekście jawnym zamieniamy na 'J'.\u003c/p\u003e\r\n\r\n","code":"const int LETTERS = 26;\r\nbool is_letter_used[LETTERS];\r\n\r\nconst int TAB_SIZE = 5;\r\nchar table[TAB_SIZE][TAB_SIZE];\r\n\r\nstring cut_key(string key)\r\n{\r\n    string new_key = \"\";\r\n    for (char c : key) {\r\n        if (!is_letter_used[c - 'A']) {\r\n            new_key += c;\r\n            is_letter_used[c - 'A'] = true;\r\n        }\r\n    }\r\n    return new_key;\r\n}\r\n\r\nstring prepare_text(string text)\r\n{\r\n    for (int i = 0; i \u003c text.length(); i += 2) {\r\n        if (text[i] == text[i + 1]) {\r\n            text.insert(i + 1, \"X\");\r\n        }\r\n    }\r\n    if (text.length() % 2) {\r\n        text += \"X\";\r\n    }\r\n    return text;\r\n}\r\n\r\nvoid fill_table(string key)\r\n{\r\n    int i = 0;\r\n    int j = 0;\r\n    // wypełnienie kluczem\r\n    for (char c : key) {\r\n        table[i][j++] = c;\r\n        if (j == TAB_SIZE) {\r\n            j = 0;\r\n            ++i;\r\n        }\r\n    }\r\n    // dopełnienie alfabetem\r\n    for (int k = 0; k \u003c LETTERS; ++k) {\r\n        if (!is_letter_used[k]) {\r\n            table[i][j++] = char(k + 'A');\r\n            if (j == TAB_SIZE) {\r\n                j = 0;\r\n                ++i;\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\nstruct Pos {\r\n    int x, y;\r\n};\r\n\r\nstring encrypt(string text, string key)\r\n{\r\n    is_letter_used['J' - 'A'] = true; // nie używamy j\r\n    key = cut_key(key); // przycinamy klucz jeśli zawiera powtórzenia\r\n    text = prepare_text(text); // dodanie X jeśli trzeba\r\n    fill_table(key);\r\n\r\n    string encrypted = \"\";\r\n    for (int k = 0; k \u003c text.length(); k += 2) {\r\n        Pos first, second;\r\n        // znalezienie pozycji obecnej pary\r\n        for (int i = 0; i \u003c TAB_SIZE; ++i) {\r\n            for (int j = 0; j \u003c TAB_SIZE; ++j) {\r\n                if (table[i][j] == text[k]) {\r\n                    first.x = i;\r\n                    first.y = j;\r\n                }\r\n                if (table[i][j] == text[k + 1]) {\r\n                    second.x = i;\r\n                    second.y = j;\r\n                }\r\n            }\r\n        }\r\n        if (first.x == second.x) {\r\n            encrypted += table[first.x][(first.y + 1) % TAB_SIZE];\r\n            encrypted += table[first.x][(second.y + 1) % TAB_SIZE];\r\n        }\r\n        else if (first.y == second.y) {\r\n            encrypted += table[(first.x + 1) % TAB_SIZE][first.y];\r\n            encrypted += table[(second.x + 1) % TAB_SIZE][first.y];\r\n        }\r\n        else {\r\n            encrypted += table[first.x][second.y];\r\n            encrypted += table[second.x][first.y];\r\n        }\r\n    }\r\n    return encrypted;\r\n}\r\n"}},"__N_SSG":true},"page":"/temat/[id]","query":{"id":"30"},"buildId":"PV3Ahy2NfbM4ugx1-cHhk","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

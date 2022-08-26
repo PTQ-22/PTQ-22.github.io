@@ -1,0 +1,79 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>Programowanie i Algorytmika</title><meta name="next-head-count" content="3"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-3433a2a2d0cf6fb6.js" defer=""></script><script src="/_next/static/chunks/framework-9b5d6ec4444c80fa.js" defer=""></script><script src="/_next/static/chunks/main-3123a443c688934f.js" defer=""></script><script src="/_next/static/chunks/pages/_app-dde6f6d9ff81fd35.js" defer=""></script><script src="/_next/static/chunks/664-ac1349529b76e794.js" defer=""></script><script src="/_next/static/chunks/589-41a19a63300fd6d7.js" defer=""></script><script src="/_next/static/chunks/pages/temat/%5Bid%5D-9b94a9c7a18fdef8.js" defer=""></script><script src="/_next/static/PV3Ahy2NfbM4ugx1-cHhk/_buildManifest.js" defer=""></script><script src="/_next/static/PV3Ahy2NfbM4ugx1-cHhk/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="sc-5dc99bb-2 kXQQfk"><nav class="sc-5dc99bb-0 bPohBk"><div class="sc-5dc99bb-1 ddOtjj"></div><h1>Macierz sąsiedztwa</h1></nav><main class="sc-5dc99bb-3 gSbCSc"><section class="sc-5dc99bb-4 jkwgMu"></section><section class="sc-5dc99bb-5 QtyGq"><pre style="display:block;overflow-x:auto;padding:0.5em;color:#abb2bf;background:#282c34"><code class="language-cpp" style="white-space:pre"><span style="color:#61aeee">#</span><span class="hljs-meta-keyword" style="color:#61aeee">include</span><span style="color:#61aeee"> </span><span style="color:#98c379">&lt;iostream&gt;</span><span>
+</span><span></span><span style="color:#61aeee">#</span><span class="hljs-meta-keyword" style="color:#61aeee">include</span><span style="color:#61aeee"> </span><span style="color:#98c379">&lt;vector&gt;</span><span>
+</span><span></span><span style="color:#61aeee">#</span><span class="hljs-meta-keyword" style="color:#61aeee">include</span><span style="color:#61aeee"> </span><span style="color:#98c379">&lt;fstream&gt;</span><span>
+</span><span></span><span style="color:#F92672">using</span><span> </span><span style="color:#F92672">namespace</span><span> std;
+</span>
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">load_undirected_unweighted</span><span style="color:#61aeee">(ifstream&amp; file, </span><span style="color:#F92672">int</span><span style="color:#61aeee"> m, vector&lt;vector&lt;</span><span style="color:#F92672">int</span><span style="color:#61aeee">&gt;&gt;&amp; graph)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">int</span><span> a, b;
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">1</span><span>; i &lt;= m; ++i) {
+</span>        file &gt;&gt; a &gt;&gt; b;
+<span>        graph[a][b] = </span><span style="color:#d19a66">1</span><span>;
+</span><span>        graph[b][a] = </span><span style="color:#d19a66">1</span><span>;
+</span>    }
+<!-- -->}
+<!-- -->
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">load_undirected_weighted</span><span style="color:#61aeee">(ifstream&amp; file, </span><span style="color:#F92672">int</span><span style="color:#61aeee"> m, vector&lt;vector&lt;</span><span style="color:#F92672">int</span><span style="color:#61aeee">&gt;&gt;&amp; graph)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">int</span><span> a, b, c;
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">1</span><span>; i &lt;= m; ++i) {
+</span>        file &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+<!-- -->        graph[a][b] = c;
+<!-- -->        graph[b][a] = c;
+<!-- -->    }
+<!-- -->}
+<!-- -->
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">load_directed_unweighted</span><span style="color:#61aeee">(ifstream&amp; file, </span><span style="color:#F92672">int</span><span style="color:#61aeee"> m, vector&lt;vector&lt;</span><span style="color:#F92672">int</span><span style="color:#61aeee">&gt;&gt;&amp; graph)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">int</span><span> a, b;
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">1</span><span>; i &lt;= m; ++i) {
+</span>        file &gt;&gt; a &gt;&gt; b;
+<span>        graph[a][b] = </span><span style="color:#d19a66">1</span><span>;
+</span>    }
+<!-- -->}
+<!-- -->
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">load_directed_weighted</span><span style="color:#61aeee">(ifstream&amp; file, </span><span style="color:#F92672">int</span><span style="color:#61aeee"> m, vector&lt;vector&lt;</span><span style="color:#F92672">int</span><span style="color:#61aeee">&gt;&gt;&amp; graph)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">int</span><span> a, b, c;
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">1</span><span>; i &lt;= m; ++i) {
+</span>        file &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+<!-- -->        graph[a][b] = c;
+<!-- -->    }
+<!-- -->}
+<!-- -->
+<span></span><span style="color:#F92672">bool</span><span style="color:#61aeee"> </span><span style="color:#61aeee">edge_exists</span><span style="color:#61aeee">(vector&lt;vector&lt;</span><span style="color:#F92672">int</span><span style="color:#61aeee">&gt;&gt;&amp; graph, </span><span style="color:#F92672">int</span><span style="color:#61aeee"> a, </span><span style="color:#F92672">int</span><span style="color:#61aeee"> b)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">if</span><span> (graph[a][b] != </span><span style="color:#d19a66">0</span><span>) {
+</span><span>        </span><span style="color:#F92672">return</span><span> </span><span style="color:#56b6c2">true</span><span>;
+</span>    }
+<span>    </span><span style="color:#F92672">return</span><span> </span><span style="color:#56b6c2">false</span><span>;
+</span>}
+<!-- -->
+<span></span><span style="color:#F92672">int</span><span style="color:#61aeee"> </span><span style="color:#61aeee">main</span><span style="color:#61aeee">()</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span>    ifstream file1, file2;
+<!-- -->
+<span>    file1.</span><span style="color:#e6c07b">open</span><span>(</span><span style="color:#98c379">&quot;graf1.txt&quot;</span><span>);
+</span>
+<span>    </span><span style="color:#F92672">int</span><span> n, m;
+</span>    file1 &gt;&gt; n &gt;&gt; m;
+<!-- -->
+<span>    vector&lt;vector&lt;</span><span style="color:#F92672">int</span><span>&gt;&gt; </span><span style="color:#e6c07b">graph1</span><span>(n + </span><span style="color:#d19a66">1</span><span>, vector&lt;</span><span style="color:#F92672">int</span><span>&gt;(n + </span><span style="color:#d19a66">1</span><span>, </span><span style="color:#d19a66">0</span><span>));
+</span>
+<span>    </span><span style="color:#e6c07b">load_undirected_unweighted</span><span>(file1, m, graph1);
+</span>
+<span>    file1.</span><span style="color:#e6c07b">close</span><span>();
+</span>
+<span>    file2.</span><span style="color:#e6c07b">open</span><span>(</span><span style="color:#98c379">&quot;graf2.txt&quot;</span><span>);
+</span>
+<!-- -->    file2 &gt;&gt; n &gt;&gt; m;
+<!-- -->
+<span>    vector&lt;vector&lt;</span><span style="color:#F92672">int</span><span>&gt;&gt; </span><span style="color:#e6c07b">graph2</span><span>(n + </span><span style="color:#d19a66">1</span><span>, vector&lt;</span><span style="color:#F92672">int</span><span>&gt;(n + </span><span style="color:#d19a66">1</span><span>, </span><span style="color:#d19a66">0</span><span>));
+</span>
+<span>    </span><span style="color:#e6c07b">load_undirected_weighted</span><span>(file2, m, graph2);
+</span>
+<span>    file2.</span><span style="color:#e6c07b">close</span><span>();
+</span>
+<span>    </span><span style="color:#F92672">return</span><span> </span><span style="color:#d19a66">0</span><span>;
+</span>}
+</code></pre><button class="sc-5dc99bb-6 fWnlPV">Kopiuj<!-- --> </button></section></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"subject":{"id":21,"name":"Macierz sąsiedztwa","description":"","code":"#include \u003ciostream\u003e\r\n#include \u003cvector\u003e\r\n#include \u003cfstream\u003e\r\nusing namespace std;\r\n\r\nvoid load_undirected_unweighted(ifstream\u0026 file, int m, vector\u003cvector\u003cint\u003e\u003e\u0026 graph)\r\n{\r\n    int a, b;\r\n    for (int i = 1; i \u003c= m; ++i) {\r\n        file \u003e\u003e a \u003e\u003e b;\r\n        graph[a][b] = 1;\r\n        graph[b][a] = 1;\r\n    }\r\n}\r\n\r\nvoid load_undirected_weighted(ifstream\u0026 file, int m, vector\u003cvector\u003cint\u003e\u003e\u0026 graph)\r\n{\r\n    int a, b, c;\r\n    for (int i = 1; i \u003c= m; ++i) {\r\n        file \u003e\u003e a \u003e\u003e b \u003e\u003e c;\r\n        graph[a][b] = c;\r\n        graph[b][a] = c;\r\n    }\r\n}\r\n\r\nvoid load_directed_unweighted(ifstream\u0026 file, int m, vector\u003cvector\u003cint\u003e\u003e\u0026 graph)\r\n{\r\n    int a, b;\r\n    for (int i = 1; i \u003c= m; ++i) {\r\n        file \u003e\u003e a \u003e\u003e b;\r\n        graph[a][b] = 1;\r\n    }\r\n}\r\n\r\nvoid load_directed_weighted(ifstream\u0026 file, int m, vector\u003cvector\u003cint\u003e\u003e\u0026 graph)\r\n{\r\n    int a, b, c;\r\n    for (int i = 1; i \u003c= m; ++i) {\r\n        file \u003e\u003e a \u003e\u003e b \u003e\u003e c;\r\n        graph[a][b] = c;\r\n    }\r\n}\r\n\r\nbool edge_exists(vector\u003cvector\u003cint\u003e\u003e\u0026 graph, int a, int b)\r\n{\r\n    if (graph[a][b] != 0) {\r\n        return true;\r\n    }\r\n    return false;\r\n}\r\n\r\nint main()\r\n{\r\n    ifstream file1, file2;\r\n\r\n    file1.open(\"graf1.txt\");\r\n\r\n    int n, m;\r\n    file1 \u003e\u003e n \u003e\u003e m;\r\n\r\n    vector\u003cvector\u003cint\u003e\u003e graph1(n + 1, vector\u003cint\u003e(n + 1, 0));\r\n\r\n    load_undirected_unweighted(file1, m, graph1);\r\n\r\n    file1.close();\r\n\r\n    file2.open(\"graf2.txt\");\r\n\r\n    file2 \u003e\u003e n \u003e\u003e m;\r\n\r\n    vector\u003cvector\u003cint\u003e\u003e graph2(n + 1, vector\u003cint\u003e(n + 1, 0));\r\n\r\n    load_undirected_weighted(file2, m, graph2);\r\n\r\n    file2.close();\r\n\r\n    return 0;\r\n}\r\n"}},"__N_SSG":true},"page":"/temat/[id]","query":{"id":"21"},"buildId":"PV3Ahy2NfbM4ugx1-cHhk","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

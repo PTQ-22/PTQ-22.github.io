@@ -1,0 +1,150 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>Programowanie i Algorytmika</title><meta name="next-head-count" content="3"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-3433a2a2d0cf6fb6.js" defer=""></script><script src="/_next/static/chunks/framework-9b5d6ec4444c80fa.js" defer=""></script><script src="/_next/static/chunks/main-3123a443c688934f.js" defer=""></script><script src="/_next/static/chunks/pages/_app-dde6f6d9ff81fd35.js" defer=""></script><script src="/_next/static/chunks/664-ac1349529b76e794.js" defer=""></script><script src="/_next/static/chunks/589-41a19a63300fd6d7.js" defer=""></script><script src="/_next/static/chunks/pages/temat/%5Bid%5D-9b94a9c7a18fdef8.js" defer=""></script><script src="/_next/static/PV3Ahy2NfbM4ugx1-cHhk/_buildManifest.js" defer=""></script><script src="/_next/static/PV3Ahy2NfbM4ugx1-cHhk/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="sc-5dc99bb-2 kXQQfk"><nav class="sc-5dc99bb-0 bPohBk"><div class="sc-5dc99bb-1 ddOtjj"></div><h1>Lista dwukierunkowa</h1></nav><main class="sc-5dc99bb-3 gSbCSc"><section class="sc-5dc99bb-4 jkwgMu"><div><p><strong>Lista dwukierunkowa</strong> - lista, która różni się od jednokierunkowej tym, że każdy jej element posiada adres nie tylko do elementu za nim, ale również do elementu przed nim. Pozwala to na łatwiejsze wykonywanie niektórych operacji np. usuwania elementów z środka listy</p></div></section><section class="sc-5dc99bb-5 QtyGq"><pre style="display:block;overflow-x:auto;padding:0.5em;color:#abb2bf;background:#282c34"><code class="language-cpp" style="white-space:pre"><span class="hljs-class" style="color:#F92672">struct</span><span class="hljs-class"> </span><span class="hljs-class" style="color:#61aeee">Person</span><span class="hljs-class"> {</span><span>
+</span>    string name, surname;
+<span>    </span><span style="color:#F92672">int</span><span> age;
+</span>};
+<!-- -->
+<span></span><span class="hljs-class" style="color:#F92672">struct</span><span class="hljs-class"> </span><span class="hljs-class" style="color:#61aeee">Node</span><span class="hljs-class"> {</span><span>
+</span>    Node* prev;
+<!-- -->    Person person;
+<!-- -->    Node* next;
+<!-- -->};
+<!-- -->
+<span>Node* first = </span><span style="color:#56b6c2">nullptr</span><span>;
+</span><span>Node* last = </span><span style="color:#56b6c2">nullptr</span><span>;
+</span><span></span><span style="color:#F92672">int</span><span> list_size = </span><span style="color:#d19a66">0</span><span>;
+</span>
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">push_front</span><span style="color:#61aeee">(Person person)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    Node *tmp = </span><span style="color:#F92672">new</span><span> Node;
+</span>    tmp-&gt;next = first;
+<span>    tmp-&gt;prev = </span><span style="color:#56b6c2">nullptr</span><span>;
+</span>    tmp-&gt;person = person;
+<!-- -->
+<span>    </span><span style="color:#F92672">if</span><span> (first == </span><span style="color:#56b6c2">nullptr</span><span>) {
+</span>        last = tmp;
+<!-- -->        first = tmp;
+<!-- -->    }
+<span>    </span><span style="color:#F92672">else</span><span> {
+</span>        first-&gt;prev = tmp;
+<!-- -->        first = tmp;
+<!-- -->    }
+<!-- -->    list_size++;
+<!-- -->}
+<!-- -->
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">push_back</span><span style="color:#61aeee">(Person person)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    Node *tmp = </span><span style="color:#F92672">new</span><span> Node;
+</span><span>    tmp-&gt;next = </span><span style="color:#56b6c2">nullptr</span><span>;
+</span>    tmp-&gt;prev = last;
+<!-- -->    tmp-&gt;person = person;
+<!-- -->
+<span>    </span><span style="color:#F92672">if</span><span> (first == </span><span style="color:#56b6c2">nullptr</span><span>) {
+</span>        first = tmp;
+<!-- -->        last = tmp;
+<!-- -->    }
+<span>    </span><span style="color:#F92672">else</span><span> {
+</span>        last-&gt;next = tmp;
+<!-- -->        last = tmp;
+<!-- -->    }
+<!-- -->    list_size++;
+<!-- -->}
+<!-- -->
+<span></span><span style="color:#61aeee">Person </span><span style="color:#61aeee">pop_front</span><span style="color:#61aeee">()</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span>    Person res = first-&gt;person;
+<!-- -->    first = first-&gt;next;
+<span>    first-&gt;prev = </span><span style="color:#56b6c2">nullptr</span><span>;
+</span>    list_size--;
+<span>    </span><span style="color:#F92672">return</span><span> res;
+</span>}
+<!-- -->
+<span></span><span style="color:#61aeee">Person </span><span style="color:#61aeee">pop_back</span><span style="color:#61aeee">()</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span>    Person res = last-&gt;person;
+<!-- -->    last = last-&gt;prev;
+<span>    last-&gt;next = </span><span style="color:#56b6c2">nullptr</span><span>;
+</span>    list_size--;
+<span>    </span><span style="color:#F92672">return</span><span> res;
+</span>}
+<!-- -->
+<span></span><span style="color:#61aeee">Person </span><span style="color:#61aeee">pop</span><span style="color:#61aeee">(</span><span style="color:#F92672">int</span><span style="color:#61aeee"> index)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span>    Node* ptr = first;
+<!-- -->
+<span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">0</span><span>; i &lt; index; ++i) {
+</span>        ptr = ptr-&gt;next;
+<span>        </span><span style="color:#F92672">if</span><span> (ptr == </span><span style="color:#56b6c2">nullptr</span><span>)
+</span><span>            </span><span style="color:#F92672">return</span><span> {</span><span style="color:#98c379">&quot;-1&quot;</span><span>, </span><span style="color:#98c379">&quot;-1&quot;</span><span>, </span><span style="color:#d19a66">-1</span><span>};
+</span>    }
+<!-- -->
+<!-- -->    Person res = ptr-&gt;person;
+<!-- -->
+<!-- -->    ptr-&gt;prev-&gt;next = ptr-&gt;next;
+<!-- -->    ptr-&gt;next-&gt;prev = ptr-&gt;prev;
+<!-- -->
+<!-- -->    list_size--;
+<span>    </span><span style="color:#F92672">return</span><span> res;
+</span>}
+<!-- -->
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">push_behind</span><span style="color:#61aeee">(Person person, </span><span style="color:#F92672">int</span><span style="color:#61aeee"> index)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span>    Node* ptr = first;
+<!-- -->
+<span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">0</span><span>; i &lt; index; ++i) {
+</span>        ptr = ptr-&gt;next;
+<span>        </span><span style="color:#F92672">if</span><span> (ptr == </span><span style="color:#56b6c2">nullptr</span><span>)
+</span><span>            </span><span style="color:#F92672">return</span><span>;
+</span>    }
+<span>    Node *tmp = </span><span style="color:#F92672">new</span><span> Node;
+</span>    tmp-&gt;person = person;
+<!-- -->    tmp-&gt;prev = ptr;
+<!-- -->    tmp-&gt;next = ptr-&gt;next;
+<!-- -->
+<!-- -->    ptr-&gt;next-&gt;prev = tmp;
+<!-- -->    ptr-&gt;next = tmp;
+<!-- -->    list_size++;
+<!-- -->}
+<!-- -->
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">push_before</span><span style="color:#61aeee">(Person person, </span><span style="color:#F92672">int</span><span style="color:#61aeee"> index)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span>    Node* ptr = first;
+<!-- -->
+<span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">0</span><span>; i &lt; index; ++i) {
+</span>        ptr = ptr-&gt;next;
+<span>        </span><span style="color:#F92672">if</span><span> (ptr == </span><span style="color:#56b6c2">nullptr</span><span>)
+</span><span>            </span><span style="color:#F92672">return</span><span>;
+</span>    }
+<span>    Node *tmp = </span><span style="color:#F92672">new</span><span> Node;
+</span>    tmp-&gt;person = person;
+<!-- -->    tmp-&gt;prev = ptr-&gt;prev;
+<!-- -->    tmp-&gt;next = ptr;
+<!-- -->
+<!-- -->    ptr-&gt;prev-&gt;next = tmp;
+<!-- -->    ptr-&gt;prev = tmp;
+<!-- -->    list_size++;
+<!-- -->}
+<!-- -->
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">printList</span><span style="color:#61aeee">()</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span>    Node* ptr = first;
+<span>    </span><span style="color:#F92672">int</span><span> counter = </span><span style="color:#d19a66">0</span><span>;
+</span><span>    </span><span style="color:#F92672">while</span><span> (ptr != </span><span style="color:#56b6c2">nullptr</span><span>) {
+</span>        Person p = ptr-&gt;person;
+<span>        cout &lt;&lt; counter++ &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span>;
+</span><span>        cout &lt;&lt; p.name &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span> &lt;&lt; p.surname &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span> &lt;&lt; p.age &lt;&lt; </span><span style="color:#98c379">&#x27;\n&#x27;</span><span>;
+</span>        ptr = ptr-&gt;next;
+<!-- -->    }
+<!-- -->}
+<!-- -->
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">printReversedList</span><span style="color:#61aeee">()</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span>    Node* ptr = last;
+<span>    </span><span style="color:#F92672">int</span><span> counter = list_size - </span><span style="color:#d19a66">1</span><span>;
+</span><span>    </span><span style="color:#F92672">while</span><span> (ptr != </span><span style="color:#56b6c2">nullptr</span><span>) {
+</span>        Person p = ptr-&gt;person;
+<span>        cout &lt;&lt; counter-- &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span>;
+</span><span>        cout &lt;&lt; p.name &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span> &lt;&lt; p.surname &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span> &lt;&lt; p.age &lt;&lt; </span><span style="color:#98c379">&#x27;\n&#x27;</span><span>;
+</span>        ptr = ptr-&gt;prev;
+<!-- -->    }
+<!-- -->}
+</code></pre><button class="sc-5dc99bb-6 fWnlPV">Kopiuj<!-- --> </button></section></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"subject":{"id":18,"name":"Lista dwukierunkowa","description":"\u003cp\u003e\u003cstrong\u003eLista dwukierunkowa\u003c/strong\u003e - lista, która różni się od jednokierunkowej tym, że każdy jej element posiada adres nie tylko do elementu za nim, ale również do elementu przed nim. Pozwala to na łatwiejsze wykonywanie niektórych operacji np. usuwania elementów z środka listy\u003c/p\u003e","code":"struct Person {\r\n    string name, surname;\r\n    int age;\r\n};\r\n\r\nstruct Node {\r\n    Node* prev;\r\n    Person person;\r\n    Node* next;\r\n};\r\n\r\nNode* first = nullptr;\r\nNode* last = nullptr;\r\nint list_size = 0;\r\n\r\nvoid push_front(Person person)\r\n{\r\n    Node *tmp = new Node;\r\n    tmp-\u003enext = first;\r\n    tmp-\u003eprev = nullptr;\r\n    tmp-\u003eperson = person;\r\n\r\n    if (first == nullptr) {\r\n        last = tmp;\r\n        first = tmp;\r\n    }\r\n    else {\r\n        first-\u003eprev = tmp;\r\n        first = tmp;\r\n    }\r\n    list_size++;\r\n}\r\n\r\nvoid push_back(Person person)\r\n{\r\n    Node *tmp = new Node;\r\n    tmp-\u003enext = nullptr;\r\n    tmp-\u003eprev = last;\r\n    tmp-\u003eperson = person;\r\n\r\n    if (first == nullptr) {\r\n        first = tmp;\r\n        last = tmp;\r\n    }\r\n    else {\r\n        last-\u003enext = tmp;\r\n        last = tmp;\r\n    }\r\n    list_size++;\r\n}\r\n\r\nPerson pop_front()\r\n{\r\n    Person res = first-\u003eperson;\r\n    first = first-\u003enext;\r\n    first-\u003eprev = nullptr;\r\n    list_size--;\r\n    return res;\r\n}\r\n\r\nPerson pop_back()\r\n{\r\n    Person res = last-\u003eperson;\r\n    last = last-\u003eprev;\r\n    last-\u003enext = nullptr;\r\n    list_size--;\r\n    return res;\r\n}\r\n\r\nPerson pop(int index)\r\n{\r\n    Node* ptr = first;\r\n\r\n    for (int i = 0; i \u003c index; ++i) {\r\n        ptr = ptr-\u003enext;\r\n        if (ptr == nullptr)\r\n            return {\"-1\", \"-1\", -1};\r\n    }\r\n\r\n    Person res = ptr-\u003eperson;\r\n\r\n    ptr-\u003eprev-\u003enext = ptr-\u003enext;\r\n    ptr-\u003enext-\u003eprev = ptr-\u003eprev;\r\n\r\n    list_size--;\r\n    return res;\r\n}\r\n\r\nvoid push_behind(Person person, int index)\r\n{\r\n    Node* ptr = first;\r\n\r\n    for (int i = 0; i \u003c index; ++i) {\r\n        ptr = ptr-\u003enext;\r\n        if (ptr == nullptr)\r\n            return;\r\n    }\r\n    Node *tmp = new Node;\r\n    tmp-\u003eperson = person;\r\n    tmp-\u003eprev = ptr;\r\n    tmp-\u003enext = ptr-\u003enext;\r\n\r\n    ptr-\u003enext-\u003eprev = tmp;\r\n    ptr-\u003enext = tmp;\r\n    list_size++;\r\n}\r\n\r\nvoid push_before(Person person, int index)\r\n{\r\n    Node* ptr = first;\r\n\r\n    for (int i = 0; i \u003c index; ++i) {\r\n        ptr = ptr-\u003enext;\r\n        if (ptr == nullptr)\r\n            return;\r\n    }\r\n    Node *tmp = new Node;\r\n    tmp-\u003eperson = person;\r\n    tmp-\u003eprev = ptr-\u003eprev;\r\n    tmp-\u003enext = ptr;\r\n\r\n    ptr-\u003eprev-\u003enext = tmp;\r\n    ptr-\u003eprev = tmp;\r\n    list_size++;\r\n}\r\n\r\nvoid printList()\r\n{\r\n    Node* ptr = first;\r\n    int counter = 0;\r\n    while (ptr != nullptr) {\r\n        Person p = ptr-\u003eperson;\r\n        cout \u003c\u003c counter++ \u003c\u003c ' ';\r\n        cout \u003c\u003c p.name \u003c\u003c ' ' \u003c\u003c p.surname \u003c\u003c ' ' \u003c\u003c p.age \u003c\u003c '\\n';\r\n        ptr = ptr-\u003enext;\r\n    }\r\n}\r\n\r\nvoid printReversedList()\r\n{\r\n    Node* ptr = last;\r\n    int counter = list_size - 1;\r\n    while (ptr != nullptr) {\r\n        Person p = ptr-\u003eperson;\r\n        cout \u003c\u003c counter-- \u003c\u003c ' ';\r\n        cout \u003c\u003c p.name \u003c\u003c ' ' \u003c\u003c p.surname \u003c\u003c ' ' \u003c\u003c p.age \u003c\u003c '\\n';\r\n        ptr = ptr-\u003eprev;\r\n    }\r\n}\r\n"}},"__N_SSG":true},"page":"/temat/[id]","query":{"id":"18"},"buildId":"PV3Ahy2NfbM4ugx1-cHhk","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
