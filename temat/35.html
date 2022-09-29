@@ -1,0 +1,71 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>Programowanie i Algorytmika</title><meta name="next-head-count" content="3"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-3433a2a2d0cf6fb6.js" defer=""></script><script src="/_next/static/chunks/framework-9b5d6ec4444c80fa.js" defer=""></script><script src="/_next/static/chunks/main-3123a443c688934f.js" defer=""></script><script src="/_next/static/chunks/pages/_app-dde6f6d9ff81fd35.js" defer=""></script><script src="/_next/static/chunks/664-ac1349529b76e794.js" defer=""></script><script src="/_next/static/chunks/589-41a19a63300fd6d7.js" defer=""></script><script src="/_next/static/chunks/pages/temat/%5Bid%5D-180eee22526118e7.js" defer=""></script><script src="/_next/static/sxUow3IPxJq37UbXOy50M/_buildManifest.js" defer=""></script><script src="/_next/static/sxUow3IPxJq37UbXOy50M/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="sc-cfead117-0 jrQalH"><nav class="sc-5e5d03dd-0 esgUiK"><div class="sc-8cb5f743-0 iJvBAS"></div><h1>Cykl Hamiltona</h1></nav><main class="sc-3074b1f4-1 eWqdUe"><section class="sc-3074b1f4-2 Rfdbv"></section><section class="sc-3074b1f4-3 iXvNav"><pre style="display:block;overflow-x:auto;padding:0.5em;color:#abb2bf;background:#282c34"><code class="language-cpp" style="white-space:pre"><span style="color:#61aeee">#</span><span class="hljs-meta-keyword" style="color:#61aeee">include</span><span style="color:#61aeee"> </span><span style="color:#98c379">&lt;iostream&gt;</span><span>
+</span><span></span><span style="color:#61aeee">#</span><span class="hljs-meta-keyword" style="color:#61aeee">include</span><span style="color:#61aeee"> </span><span style="color:#98c379">&lt;vector&gt;</span><span>
+</span><span></span><span style="color:#F92672">using</span><span> </span><span style="color:#F92672">namespace</span><span> std;
+</span>
+<span></span><span style="color:#61aeee">#</span><span class="hljs-meta-keyword" style="color:#61aeee">define</span><span style="color:#61aeee"> VVI vector</span><span style="color:#98c379">&lt;vector&lt;int&gt;</span><span style="color:#61aeee">&gt;</span><span>
+</span>
+<span></span><span style="color:#F92672">void</span><span style="color:#61aeee"> </span><span style="color:#61aeee">DFSHamilton</span><span style="color:#61aeee">(</span><span style="color:#F92672">int</span><span style="color:#61aeee"> n, VVI &amp;G, </span><span style="color:#F92672">int</span><span style="color:#61aeee"> v, vector&lt;</span><span style="color:#F92672">bool</span><span style="color:#61aeee">&gt; &amp;vis, vector&lt;</span><span style="color:#F92672">int</span><span style="color:#61aeee">&gt; &amp;S)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    S.</span><span style="color:#e6c07b">push_back</span><span>(v);
+</span><span>    </span><span style="color:#F92672">if</span><span> (S.</span><span style="color:#e6c07b">size</span><span>() &gt;= n)
+</span>    {
+<span>        </span><span style="color:#F92672">int</span><span> test = </span><span style="color:#56b6c2">false</span><span>;
+</span><span>        </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> u : G[v])
+</span>        {
+<span>            </span><span style="color:#F92672">if</span><span> (u == </span><span style="color:#d19a66">1</span><span>)
+</span>            {
+<span>                test = </span><span style="color:#56b6c2">true</span><span>;
+</span>            }
+<!-- -->        }
+<span>        </span><span style="color:#F92672">if</span><span> (test)
+</span>        {
+<span>            cout &lt;&lt; </span><span style="color:#98c379">&quot;Hamilton Cycle: &quot;</span><span>;
+</span>        }
+<span>        </span><span style="color:#F92672">else</span><span>
+</span>        {
+<span>            cout &lt;&lt; </span><span style="color:#98c379">&quot;Hamilton Path: &quot;</span><span>;
+</span>        }
+<span>        </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i : S)
+</span>        {
+<span>            cout &lt;&lt; i &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span>;
+</span>        }
+<span>        </span><span style="color:#F92672">if</span><span> (test)
+</span><span>            cout &lt;&lt; </span><span style="color:#d19a66">1</span><span>;
+</span>    }
+<span>    </span><span style="color:#F92672">else</span><span>
+</span>    {
+<span>        vis[v] = </span><span style="color:#56b6c2">true</span><span>;
+</span><span>        </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> u : G[v])
+</span>        {
+<span>            </span><span style="color:#F92672">if</span><span> (!vis[u])
+</span>            {
+<span>                </span><span style="color:#e6c07b">DFSHamilton</span><span>(n, G, u, vis, S);
+</span>            }
+<!-- -->        }
+<span>        vis[v] = </span><span style="color:#56b6c2">false</span><span>;
+</span>    }
+<span>    S.</span><span style="color:#e6c07b">pop_back</span><span>();
+</span>}
+<!-- -->
+<span></span><span style="color:#F92672">int</span><span style="color:#61aeee"> </span><span style="color:#61aeee">main</span><span style="color:#61aeee">()</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">int</span><span> n, m;
+</span>    cin &gt;&gt; n &gt;&gt; m;
+<!-- -->
+<span>    </span><span style="color:#61aeee">VVI </span><span style="color:#61aeee">G</span><span style="color:#61aeee">(n + </span><span style="color:#d19a66">1</span><span style="color:#61aeee">, vector&lt;</span><span style="color:#F92672">int</span><span style="color:#61aeee">&gt;())</span><span>;
+</span>
+<span>    </span><span style="color:#F92672">int</span><span> a, b;
+</span><span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">1</span><span>; i &lt;= m; ++i)
+</span>    {
+<!-- -->        cin &gt;&gt; a &gt;&gt; b;
+<span>        G[a].</span><span style="color:#e6c07b">push_back</span><span>(b);
+</span><span>        G[b].</span><span style="color:#e6c07b">push_back</span><span>(a);
+</span>    }
+<!-- -->
+<span>    </span><span style="color:#61aeee">vector&lt;</span><span style="color:#F92672">bool</span><span style="color:#61aeee">&gt; </span><span style="color:#61aeee">vis</span><span style="color:#61aeee">(n + </span><span style="color:#d19a66">1</span><span style="color:#61aeee">)</span><span>;
+</span><span>    vector&lt;</span><span style="color:#F92672">int</span><span>&gt; S;
+</span>
+<span>    </span><span style="color:#e6c07b">DFSHamilton</span><span>(n, G, </span><span style="color:#d19a66">1</span><span>, vis, S);
+</span>
+<span>    </span><span style="color:#F92672">return</span><span> </span><span style="color:#d19a66">0</span><span>;
+</span>}</code></pre><div class="sc-3074b1f4-4 kqnKOI">Kopiuj<!-- --> </div></section></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"subject":{"id":35,"name":"Cykl Hamiltona","description":"","code":"#include \u003ciostream\u003e\r\n#include \u003cvector\u003e\r\nusing namespace std;\r\n\r\n#define VVI vector\u003cvector\u003cint\u003e\u003e\r\n\r\nvoid DFSHamilton(int n, VVI \u0026G, int v, vector\u003cbool\u003e \u0026vis, vector\u003cint\u003e \u0026S)\r\n{\r\n    S.push_back(v);\r\n    if (S.size() \u003e= n)\r\n    {\r\n        int test = false;\r\n        for (int u : G[v])\r\n        {\r\n            if (u == 1)\r\n            {\r\n                test = true;\r\n            }\r\n        }\r\n        if (test)\r\n        {\r\n            cout \u003c\u003c \"Hamilton Cycle: \";\r\n        }\r\n        else\r\n        {\r\n            cout \u003c\u003c \"Hamilton Path: \";\r\n        }\r\n        for (int i : S)\r\n        {\r\n            cout \u003c\u003c i \u003c\u003c ' ';\r\n        }\r\n        if (test)\r\n            cout \u003c\u003c 1;\r\n    }\r\n    else\r\n    {\r\n        vis[v] = true;\r\n        for (int u : G[v])\r\n        {\r\n            if (!vis[u])\r\n            {\r\n                DFSHamilton(n, G, u, vis, S);\r\n            }\r\n        }\r\n        vis[v] = false;\r\n    }\r\n    S.pop_back();\r\n}\r\n\r\nint main()\r\n{\r\n    int n, m;\r\n    cin \u003e\u003e n \u003e\u003e m;\r\n\r\n    VVI G(n + 1, vector\u003cint\u003e());\r\n\r\n    int a, b;\r\n    for (int i = 1; i \u003c= m; ++i)\r\n    {\r\n        cin \u003e\u003e a \u003e\u003e b;\r\n        G[a].push_back(b);\r\n        G[b].push_back(a);\r\n    }\r\n\r\n    vector\u003cbool\u003e vis(n + 1);\r\n    vector\u003cint\u003e S;\r\n\r\n    DFSHamilton(n, G, 1, vis, S);\r\n\r\n    return 0;\r\n}"}},"__N_SSG":true},"page":"/temat/[id]","query":{"id":"35"},"buildId":"sxUow3IPxJq37UbXOy50M","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
