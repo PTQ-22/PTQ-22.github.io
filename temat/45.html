@@ -1,0 +1,144 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><title>Programowanie i Algorytmika</title><meta name="next-head-count" content="3"/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-3433a2a2d0cf6fb6.js" defer=""></script><script src="/_next/static/chunks/framework-9b5d6ec4444c80fa.js" defer=""></script><script src="/_next/static/chunks/main-3123a443c688934f.js" defer=""></script><script src="/_next/static/chunks/pages/_app-dde6f6d9ff81fd35.js" defer=""></script><script src="/_next/static/chunks/664-ac1349529b76e794.js" defer=""></script><script src="/_next/static/chunks/589-41a19a63300fd6d7.js" defer=""></script><script src="/_next/static/chunks/pages/temat/%5Bid%5D-b572ac9b74dca045.js" defer=""></script><script src="/_next/static/jT079FchiFl_qB07w0-j6/_buildManifest.js" defer=""></script><script src="/_next/static/jT079FchiFl_qB07w0-j6/_ssgManifest.js" defer=""></script></head><body><div id="__next"><div class="sc-cfead117-0 jrQalH"><nav class="sc-5e5d03dd-0 esgUiK"><div class="sc-8cb5f743-0 iJvBAS"></div><h1>Punkt przecięcia prostych </h1></nav><main class="sc-6d8da263-1 jAyVxz"><section class="sc-6d8da263-2 bOatkO"></section><section class="sc-6d8da263-3 lmbOEg"><pre style="display:block;overflow-x:auto;padding:0.5em;color:#abb2bf;background:#282c34"><code class="language-cpp" style="white-space:pre"><span style="color:#61aeee">#</span><span class="hljs-meta-keyword" style="color:#61aeee">include</span><span style="color:#61aeee"> </span><span style="color:#98c379">&lt;iostream&gt;</span><span>
+</span><span></span><span style="color:#61aeee">#</span><span class="hljs-meta-keyword" style="color:#61aeee">include</span><span style="color:#61aeee"> </span><span style="color:#98c379">&lt;fstream&gt;</span><span>
+</span><span></span><span style="color:#61aeee">#</span><span class="hljs-meta-keyword" style="color:#61aeee">include</span><span style="color:#61aeee"> </span><span style="color:#98c379">&lt;vector&gt;</span><span>
+</span><span></span><span style="color:#F92672">using</span><span> </span><span style="color:#F92672">namespace</span><span> std;
+</span>
+<span></span><span class="hljs-class" style="color:#F92672">struct</span><span class="hljs-class"> </span><span class="hljs-class" style="color:#61aeee">Point</span><span class="hljs-class">
+</span><span class="hljs-class">{</span><span>
+</span><span>    </span><span style="color:#F92672">int</span><span> x, y;
+</span>};
+<!-- -->
+<span></span><span class="hljs-class" style="color:#F92672">struct</span><span class="hljs-class"> </span><span class="hljs-class" style="color:#61aeee">Line</span><span class="hljs-class">
+</span><span class="hljs-class">{</span><span>
+</span>    Point p, q;
+<span>    </span><span style="color:#F92672">int</span><span> i;
+</span>};
+<!-- -->
+<span></span><span class="hljs-class" style="color:#F92672">struct</span><span class="hljs-class"> </span><span class="hljs-class" style="color:#61aeee">CommonFraction</span><span class="hljs-class">
+</span><span class="hljs-class">{</span><span>
+</span><span>    </span><span style="color:#F92672">int</span><span> numerator;
+</span><span>    </span><span style="color:#F92672">int</span><span> denominator;
+</span>};
+<!-- -->
+<span></span><span class="hljs-class" style="color:#F92672">struct</span><span class="hljs-class"> </span><span class="hljs-class" style="color:#61aeee">FractionPoint</span><span class="hljs-class">
+</span><span class="hljs-class">{</span><span>
+</span>    CommonFraction x, y;
+<!-- -->};
+<!-- -->
+<span></span><span style="color:#F92672">int</span><span style="color:#61aeee"> </span><span style="color:#61aeee">det3</span><span style="color:#61aeee">(Point a, Point b, Point c)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#b18eb1;font-style:italic">// | ax ay 1 |</span><span>
+</span><span>    </span><span style="color:#b18eb1;font-style:italic">// | bx by 1 |</span><span>
+</span><span>    </span><span style="color:#b18eb1;font-style:italic">// | cx cy 1 |</span><span>
+</span><span>    </span><span style="color:#F92672">return</span><span> a.x * b.y + a.y * c.x + b.x * c.y - b.y * c.x - a.x * c.y - a.y * b.x;
+</span>}
+<!-- -->
+<span></span><span style="color:#F92672">int</span><span style="color:#61aeee"> </span><span style="color:#61aeee">det2</span><span style="color:#61aeee">(</span><span style="color:#F92672">int</span><span style="color:#61aeee"> matrix[</span><span style="color:#d19a66">2</span><span style="color:#61aeee">][</span><span style="color:#d19a66">2</span><span style="color:#61aeee">])</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">return</span><span> matrix[</span><span style="color:#d19a66">0</span><span>][</span><span style="color:#d19a66">0</span><span>] * matrix[</span><span style="color:#d19a66">1</span><span>][</span><span style="color:#d19a66">1</span><span>] - matrix[</span><span style="color:#d19a66">0</span><span>][</span><span style="color:#d19a66">1</span><span>] * matrix[</span><span style="color:#d19a66">1</span><span>][</span><span style="color:#d19a66">0</span><span>];
+</span>}
+<span></span><span style="color:#61aeee">FractionPoint </span><span style="color:#61aeee">intersectionPoint</span><span style="color:#61aeee">(Line &amp;line1, Line &amp;line2)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">int</span><span> smallMatrix12[</span><span style="color:#d19a66">2</span><span>][</span><span style="color:#d19a66">2</span><span>] = {
+</span>        {line1.p.x, line1.p.y},
+<!-- -->        {line1.q.x, line1.q.y}};
+<span>    </span><span style="color:#F92672">int</span><span> smallMatrix34[</span><span style="color:#d19a66">2</span><span>][</span><span style="color:#d19a66">2</span><span>] = {
+</span>        {line2.p.x, line2.p.y},
+<!-- -->        {line2.q.x, line2.q.y}};
+<!-- -->
+<span>    </span><span style="color:#F92672">int</span><span> bigMatrixX[</span><span style="color:#d19a66">2</span><span>][</span><span style="color:#d19a66">2</span><span>] = {
+</span><span>        {</span><span style="color:#e6c07b">det2</span><span>(smallMatrix12), line1.p.x - line1.q.x},
+</span><span>        {</span><span style="color:#e6c07b">det2</span><span>(smallMatrix34), line2.p.x - line2.q.x}};
+</span>
+<span>    </span><span style="color:#F92672">int</span><span> bigMatrixY[</span><span style="color:#d19a66">2</span><span>][</span><span style="color:#d19a66">2</span><span>] = {
+</span><span>        {</span><span style="color:#e6c07b">det2</span><span>(smallMatrix12), line1.p.y - line1.q.y},
+</span><span>        {</span><span style="color:#e6c07b">det2</span><span>(smallMatrix34), line2.p.y - line2.q.y}};
+</span>
+<span>    </span><span style="color:#F92672">int</span><span> denominatorMatrix[</span><span style="color:#d19a66">2</span><span>][</span><span style="color:#d19a66">2</span><span>] = {
+</span>        {line1.p.x - line1.q.x, line1.p.y - line1.q.y},
+<!-- -->        {line2.p.x - line2.q.x, line2.p.y - line2.q.y}};
+<!-- -->
+<span>    </span><span style="color:#F92672">int</span><span> numeratorX = </span><span style="color:#e6c07b">det2</span><span>(bigMatrixX);
+</span><span>    </span><span style="color:#F92672">int</span><span> numeratorY = </span><span style="color:#e6c07b">det2</span><span>(bigMatrixY);
+</span><span>    </span><span style="color:#F92672">int</span><span> denominatorX = </span><span style="color:#e6c07b">det2</span><span>(denominatorMatrix);
+</span><span>    </span><span style="color:#F92672">int</span><span> denominatorY = </span><span style="color:#e6c07b">det2</span><span>(denominatorMatrix);
+</span>
+<!-- -->    FractionPoint fractionPoint = {
+<!-- -->        {numeratorX, denominatorX},
+<!-- -->        {numeratorY, denominatorY}};
+<span>    </span><span style="color:#F92672">return</span><span> fractionPoint;
+</span>}
+<!-- -->
+<span></span><span style="color:#F92672">bool</span><span style="color:#61aeee"> </span><span style="color:#61aeee">isParallelTo</span><span style="color:#61aeee">(Line &amp;line1, Line &amp;line2)</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span><span>    </span><span style="color:#F92672">int</span><span> matrix[</span><span style="color:#d19a66">2</span><span>][</span><span style="color:#d19a66">2</span><span>] = {
+</span>        {line1.p.x - line1.q.x, line1.p.y - line1.q.y},
+<!-- -->        {line2.p.x - line2.q.x, line2.p.y - line2.q.y}};
+<span>    </span><span style="color:#F92672">if</span><span> ((</span><span style="color:#e6c07b">det2</span><span>(matrix) == </span><span style="color:#d19a66">0</span><span>) &amp;&amp; (</span><span style="color:#e6c07b">det3</span><span>(line1.p, line1.q, line2.p) != </span><span style="color:#d19a66">0</span><span>))
+</span>    {
+<span>        </span><span style="color:#F92672">return</span><span> </span><span style="color:#56b6c2">true</span><span>;
+</span>    }
+<span>    </span><span style="color:#F92672">return</span><span> </span><span style="color:#56b6c2">false</span><span>;
+</span>}
+<!-- -->
+<span></span><span style="color:#F92672">int</span><span style="color:#61aeee"> </span><span style="color:#61aeee">main</span><span style="color:#61aeee">()</span><span style="color:#61aeee">
+</span><span style="color:#61aeee"></span><span>{
+</span>    fstream inputFile;
+<span>    inputFile.</span><span style="color:#e6c07b">open</span><span>(</span><span style="color:#98c379">&quot;linie.txt&quot;</span><span>);
+</span>
+<!-- -->    ofstream resFile1, resFile2;
+<span>    resFile1.</span><span style="color:#e6c07b">open</span><span>(</span><span style="color:#98c379">&quot;wyniki1.txt&quot;</span><span>);
+</span><span>    resFile2.</span><span style="color:#e6c07b">open</span><span>(</span><span style="color:#98c379">&quot;wyniki2.txt&quot;</span><span>);
+</span>
+<span>    </span><span style="color:#F92672">int</span><span> N;
+</span>    inputFile &gt;&gt; N;
+<!-- -->
+<!-- -->    Line firstLine;
+<!-- -->    inputFile &gt;&gt; firstLine.p.x;
+<!-- -->    inputFile &gt;&gt; firstLine.p.y;
+<!-- -->    inputFile &gt;&gt; firstLine.q.x;
+<!-- -->    inputFile &gt;&gt; firstLine.q.y;
+<span>    firstLine.i = </span><span style="color:#d19a66">1</span><span>;
+</span>
+<!-- -->    vector&lt;Line&gt; lines;
+<span>    </span><span style="color:#F92672">for</span><span> (</span><span style="color:#F92672">int</span><span> i = </span><span style="color:#d19a66">2</span><span>; i &lt;= N; ++i)
+</span>    {
+<!-- -->        Line nextLine;
+<!-- -->        inputFile &gt;&gt; nextLine.p.x;
+<!-- -->        inputFile &gt;&gt; nextLine.p.y;
+<!-- -->        inputFile &gt;&gt; nextLine.q.x;
+<!-- -->        inputFile &gt;&gt; nextLine.q.y;
+<span>        nextLine.i = </span><span style="color:#d19a66">1</span><span>;
+</span><span>        lines.</span><span style="color:#e6c07b">push_back</span><span>(nextLine);
+</span>    }
+<!-- -->
+<!-- -->    vector&lt;Line&gt; intersectWithFirstLine;
+<!-- -->    vector&lt;FractionPoint&gt; intersectionPoints;
+<!-- -->
+<span>    </span><span style="color:#F92672">for</span><span> (Line line : lines)
+</span>    {
+<span>        </span><span style="color:#F92672">if</span><span> (!</span><span style="color:#e6c07b">isParallelTo</span><span>(firstLine, line))
+</span>        {
+<span>            intersectWithFirstLine.</span><span style="color:#e6c07b">push_back</span><span>(line);
+</span><span>            intersectionPoints.</span><span style="color:#e6c07b">push_back</span><span>(</span><span style="color:#e6c07b">intersectionPoint</span><span>(firstLine, line));
+</span>        }
+<!-- -->    }
+<!-- -->
+<span>    resFile1 &lt;&lt; intersectWithFirstLine.</span><span style="color:#e6c07b">size</span><span>() &lt;&lt; </span><span style="color:#98c379">&#x27;\n&#x27;</span><span>;
+</span><span>    </span><span style="color:#F92672">for</span><span> (Line line : intersectWithFirstLine)
+</span>    {
+<span>        resFile1 &lt;&lt; line.i &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span>;
+</span>    }
+<!-- -->
+<span>    </span><span style="color:#F92672">for</span><span> (FractionPoint point : intersectionPoints)
+</span>    {
+<span>        resFile2 &lt;&lt; point.x.numerator &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span> &lt;&lt; point.x.denominator &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span>
+</span><span>                 &lt;&lt; point.y.numerator &lt;&lt; </span><span style="color:#98c379">&#x27; &#x27;</span><span> &lt;&lt; point.y.denominator &lt;&lt; </span><span style="color:#98c379">&#x27;\n&#x27;</span><span>;
+</span>    }
+<!-- -->
+<span>    inputFile.</span><span style="color:#e6c07b">close</span><span>();
+</span><span>    resFile1.</span><span style="color:#e6c07b">close</span><span>();
+</span><span>    resFile2.</span><span style="color:#e6c07b">close</span><span>();
+</span>
+<span>    </span><span style="color:#F92672">return</span><span> </span><span style="color:#d19a66">0</span><span>;
+</span>}</code></pre><div class="sc-6d8da263-4 hyvlcJ">Kopiuj<!-- --> </div></section></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"subject":{"id":45,"name":"Punkt przecięcia prostych ","description":"","code":"#include \u003ciostream\u003e\r\n#include \u003cfstream\u003e\r\n#include \u003cvector\u003e\r\nusing namespace std;\r\n\r\nstruct Point\r\n{\r\n    int x, y;\r\n};\r\n\r\nstruct Line\r\n{\r\n    Point p, q;\r\n    int i;\r\n};\r\n\r\nstruct CommonFraction\r\n{\r\n    int numerator;\r\n    int denominator;\r\n};\r\n\r\nstruct FractionPoint\r\n{\r\n    CommonFraction x, y;\r\n};\r\n\r\nint det3(Point a, Point b, Point c)\r\n{\r\n    // | ax ay 1 |\r\n    // | bx by 1 |\r\n    // | cx cy 1 |\r\n    return a.x * b.y + a.y * c.x + b.x * c.y - b.y * c.x - a.x * c.y - a.y * b.x;\r\n}\r\n\r\nint det2(int matrix[2][2])\r\n{\r\n    return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];\r\n}\r\nFractionPoint intersectionPoint(Line \u0026line1, Line \u0026line2)\r\n{\r\n    int smallMatrix12[2][2] = {\r\n        {line1.p.x, line1.p.y},\r\n        {line1.q.x, line1.q.y}};\r\n    int smallMatrix34[2][2] = {\r\n        {line2.p.x, line2.p.y},\r\n        {line2.q.x, line2.q.y}};\r\n\r\n    int bigMatrixX[2][2] = {\r\n        {det2(smallMatrix12), line1.p.x - line1.q.x},\r\n        {det2(smallMatrix34), line2.p.x - line2.q.x}};\r\n\r\n    int bigMatrixY[2][2] = {\r\n        {det2(smallMatrix12), line1.p.y - line1.q.y},\r\n        {det2(smallMatrix34), line2.p.y - line2.q.y}};\r\n\r\n    int denominatorMatrix[2][2] = {\r\n        {line1.p.x - line1.q.x, line1.p.y - line1.q.y},\r\n        {line2.p.x - line2.q.x, line2.p.y - line2.q.y}};\r\n\r\n    int numeratorX = det2(bigMatrixX);\r\n    int numeratorY = det2(bigMatrixY);\r\n    int denominatorX = det2(denominatorMatrix);\r\n    int denominatorY = det2(denominatorMatrix);\r\n\r\n    FractionPoint fractionPoint = {\r\n        {numeratorX, denominatorX},\r\n        {numeratorY, denominatorY}};\r\n    return fractionPoint;\r\n}\r\n\r\nbool isParallelTo(Line \u0026line1, Line \u0026line2)\r\n{\r\n    int matrix[2][2] = {\r\n        {line1.p.x - line1.q.x, line1.p.y - line1.q.y},\r\n        {line2.p.x - line2.q.x, line2.p.y - line2.q.y}};\r\n    if ((det2(matrix) == 0) \u0026\u0026 (det3(line1.p, line1.q, line2.p) != 0))\r\n    {\r\n        return true;\r\n    }\r\n    return false;\r\n}\r\n\r\nint main()\r\n{\r\n    fstream inputFile;\r\n    inputFile.open(\"linie.txt\");\r\n\r\n    ofstream resFile1, resFile2;\r\n    resFile1.open(\"wyniki1.txt\");\r\n    resFile2.open(\"wyniki2.txt\");\r\n\r\n    int N;\r\n    inputFile \u003e\u003e N;\r\n\r\n    Line firstLine;\r\n    inputFile \u003e\u003e firstLine.p.x;\r\n    inputFile \u003e\u003e firstLine.p.y;\r\n    inputFile \u003e\u003e firstLine.q.x;\r\n    inputFile \u003e\u003e firstLine.q.y;\r\n    firstLine.i = 1;\r\n\r\n    vector\u003cLine\u003e lines;\r\n    for (int i = 2; i \u003c= N; ++i)\r\n    {\r\n        Line nextLine;\r\n        inputFile \u003e\u003e nextLine.p.x;\r\n        inputFile \u003e\u003e nextLine.p.y;\r\n        inputFile \u003e\u003e nextLine.q.x;\r\n        inputFile \u003e\u003e nextLine.q.y;\r\n        nextLine.i = 1;\r\n        lines.push_back(nextLine);\r\n    }\r\n\r\n    vector\u003cLine\u003e intersectWithFirstLine;\r\n    vector\u003cFractionPoint\u003e intersectionPoints;\r\n\r\n    for (Line line : lines)\r\n    {\r\n        if (!isParallelTo(firstLine, line))\r\n        {\r\n            intersectWithFirstLine.push_back(line);\r\n            intersectionPoints.push_back(intersectionPoint(firstLine, line));\r\n        }\r\n    }\r\n\r\n    resFile1 \u003c\u003c intersectWithFirstLine.size() \u003c\u003c '\\n';\r\n    for (Line line : intersectWithFirstLine)\r\n    {\r\n        resFile1 \u003c\u003c line.i \u003c\u003c ' ';\r\n    }\r\n\r\n    for (FractionPoint point : intersectionPoints)\r\n    {\r\n        resFile2 \u003c\u003c point.x.numerator \u003c\u003c ' ' \u003c\u003c point.x.denominator \u003c\u003c ' '\r\n                 \u003c\u003c point.y.numerator \u003c\u003c ' ' \u003c\u003c point.y.denominator \u003c\u003c '\\n';\r\n    }\r\n\r\n    inputFile.close();\r\n    resFile1.close();\r\n    resFile2.close();\r\n\r\n    return 0;\r\n}"}},"__N_SSG":true},"page":"/temat/[id]","query":{"id":"45"},"buildId":"jT079FchiFl_qB07w0-j6","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
